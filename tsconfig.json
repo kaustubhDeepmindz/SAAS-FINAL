@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@PharynxAI/database/*": [
+        "./database/*"
+      ],
+      "@app/sample": [
+        "libs/sample/src",
+        "libs/sample/src"
+      ],
+      "@app/sample/*": [
+        "libs/sample/src/*",
+        "libs/sample/src/*"
+      ],
+      "@app/test": [
+        "libs/test/src"
+      ],
+      "@app/test/*": [
+        "libs/test/src/*"
+      ]
+    }
+  }
+}

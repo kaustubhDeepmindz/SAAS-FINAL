@@ -1,0 +1,17 @@
+{
+  "name": "saas-final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/common": "^10.1.3",
+    "@nestjs/mongoose": "github:nestjs/mongoose",
+    "class-validator": "^0.14.0",
+    "mongoose": "^7.4.1"
+  }
+}
