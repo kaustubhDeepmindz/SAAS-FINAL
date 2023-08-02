@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ManagerServicesService } from './manager-services.service';
 
-@Controller()
+@Controller("/manager")
 export class ManagerServicesController {
   constructor(private readonly managerServicesService: ManagerServicesService) {}
 

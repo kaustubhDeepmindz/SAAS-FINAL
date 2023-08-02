@@ -1,32 +1,20 @@
 import { Logger, NotFoundException } from '@nestjs/common';
-import {
-  FilterQuery,
-  Model,
-  Types,
-  UpdateQuery,
-  SaveOptions,
-  Connection,
-} from 'mongoose';
+import { FilterQuery, Model, Types, UpdateQuery,  SaveOptions, Connection } from 'mongoose';
 import { AbstractDocument } from './abstract.schema';
 
 export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   protected abstract readonly logger: Logger;
 
-  constructor(
-    protected readonly model: Model<TDocument>,
-    private readonly connection: Connection,
-  ) {}
+  constructor(protected readonly model: Model<TDocument>,    
+    private readonly connection: Connection,) {}
 
-  async create(
-    document: Omit<TDocument, '_id'>s
-  ): Promise<TDocument> {
+  async create(document: Omit<TDocument, '_id'>,
+  options?: SaveOptions): Promise<TDocument> {
     const createdDocument = new this.model({
       ...document,
       _id: new Types.ObjectId(),
     });
-    return (
-      await createdDocument.save(options)
-    ).toJSON() as unknown as TDocument;
+    return (await createdDocument.save()).toJSON() as unknown as TDocument;
   }
 
   async findOne(filterQuery: FilterQuery<TDocument>): Promise<TDocument> {
@@ -55,17 +43,6 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     }
 
     return document;
-  }
-
-  async upsert(
-    filterQuery: FilterQuery<TDocument>,
-    document: Partial<TDocument>,
-  ) {
-    return this.model.findOneAndUpdate(filterQuery, document, {
-      lean: true,
-      upsert: true,
-      new: true,
-    });
   }
 
   async find(filterQuery: FilterQuery<TDocument>) {

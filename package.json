@@ -1,5 +1,5 @@
 {
-  "name": "auth-services",
+  "name": "saas-services",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -21,8 +21,12 @@
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/mongoose": "^10.0.1",
     "@nestjs/platform-express": "^9.0.0",
+    "concurrently": "^8.2.0",
+    "mongoose": "^7.4.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
@@ -71,7 +75,8 @@
     ],
     "moduleNameMapper": {
       "^@app/kafka(|/.*)$": "<rootDir>/libs/kafka/src/$1",
-      "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1"
+      "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1",
+      "^@app/repository(|/.*)$": "<rootDir>/libs/repository/src/$1"
     }
   }
 }
