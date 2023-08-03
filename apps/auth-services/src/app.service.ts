@@ -18,21 +18,21 @@ export class AppService {
   }
 
   async register(req,res){
-    try {
-       const doesExist = await this.usersRepository.findOne({ email: req.email })
 
-       if (doesExist)
-       throw new UnprocessableEntityException('Email already exists.');
+    try {
+     
        const user = new User()
-       const savedUser = await this.usersRepository.create(req)
+       const savedUser = await this.usersRepository.create(req.body)
+       console.log("savedUser",savedUser)
       //  const accessToken = await signAccessToken(savedUser.email)
       //  const refreshToken = await signRefreshToken(savedUser.email)
        console.log(6)
       //  await UserCreated.sendUserCreated(user);
       //  return res.send({ accessToken, refreshToken })
-      return true
+      return savedUser
     } catch (error) {
-       console.log("ERROR WHILE SIGN UP")
+
+       console.log("ERROR WHILE SIGN UP",error)
     }
   }
 

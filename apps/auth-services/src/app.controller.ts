@@ -13,6 +13,7 @@ export class AppController {
   @Post('/register')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async register(@Req() req:Request,@Res() res:Response) {
+    console.log("req=",req.body)
     return this.appService.register(req,res);
   }
 

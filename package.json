@@ -9,6 +9,7 @@
     "apps/*"
   ],
   "scripts": {
+    "app": "nest start $app --watch",
     "build": "nest build && bash ./build-all-services.sh",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
