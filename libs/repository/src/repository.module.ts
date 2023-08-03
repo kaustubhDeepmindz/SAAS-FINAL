@@ -1,14 +1,22 @@
 import { Module } from '@nestjs/common';
-import { Order, OrderSchema } from './schemas/order.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { DatabaseModule } from '@app/common';
+import { ServiceAccount, ServiceAccountSchema } from './schemas/ServiceAccount.schema';
+import { ServiceAccountRepository } from './repositories/serviceAccount.repository';
+import { ProjectRepository } from './repositories/project.repository';
+import { Project, ProjectSchema } from './schemas/Project/Project.schema';
 
 
 @Module({
-  imports: [DatabaseModule,
-    MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
+  imports: [
+    
+    DatabaseModule,
+    MongooseModule.forFeature([
+      { name: ServiceAccount.name, schema: ServiceAccountSchema },
+      { name: Project.name, schema: ProjectSchema }
+    ]),
   ],
-  providers: [],
-  exports: [],
+  providers: [ServiceAccountRepository, ProjectRepository],
+  exports: [ServiceAccountRepository, ProjectRepository],
 })
 export class RepositoryModule { }
