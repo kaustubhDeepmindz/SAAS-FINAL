@@ -5,11 +5,20 @@ import { DatabaseService } from '../database/database.service';
 import { IConsumer } from './consumer.interface';
 import { KafkajsConsumer } from './kafkajs.consumer';
 
+enum MessageType {
+  JSON = 'json',
+  STRING = 'string',
+  NUMBER = 'number'
+}
+
 interface KafkajsConsumerOptions {
   topic: ConsumerSubscribeTopic;
   config: ConsumerConfig;
-  onMessage: (message: KafkaMessage) => Promise<void>;
+  onMessage: (message) => Promise<void>;
+  messageType:MessageType
 }
+
+
 
 @Injectable()
 export class ConsumerService implements OnApplicationShutdown {
@@ -20,12 +29,13 @@ export class ConsumerService implements OnApplicationShutdown {
     private readonly databaserService: DatabaseService,
   ) {}
 
-  async consume({ topic, config, onMessage }: KafkajsConsumerOptions) {
+  async consume({ topic, config, onMessage, messageType }: KafkajsConsumerOptions) {
     const consumer = new KafkajsConsumer(
       topic,
       this.databaserService,
       config,
       this.configService.get('KAFKA_BROKER'),
+      messageType
     );
     await consumer.connect();
     await consumer.consume(onMessage);

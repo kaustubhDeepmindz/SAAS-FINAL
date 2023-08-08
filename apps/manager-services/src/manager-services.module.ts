@@ -1,10 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ManagerServicesController } from './manager-services.controller';
-import { ManagerServicesService } from './manager-services.service';
 import { RepositoryModule } from '@app/repository';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
-
+import { AccountService } from './services/accounts.service';
+import { ManagerController } from './controllers/servicemanager.controller';
+import { ServiceManagerService } from './services/servicemanager.service';
+import { ServiceManager } from './utils/serviceManager';
+import { KafkaModule } from '@app/common';
+import {
+  ApiUsageConsumer,
+  ActivateService,
+  ReactivateService,
+  ActivateServiceKeys,
+  DeactivateServiceKeys
+} from "./events";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,9 +24,23 @@ import * as Joi from 'joi';
       }),
       envFilePath: './apps/manager-services/.env',
     }),
-    RepositoryModule
+    RepositoryModule,
+    KafkaModule
   ],
-  controllers: [ManagerServicesController],
-  providers: [ManagerServicesService],
+  controllers: [ManagerController],
+  providers: [
+    AccountService, 
+    ServiceManagerService, 
+
+    // UTILS
+    ServiceManager,
+
+    // Consumers
+    ApiUsageConsumer,
+    ActivateService,
+    ReactivateService,
+    ActivateServiceKeys,
+    DeactivateServiceKeys
+  ],
 })
 export class ManagerServicesModule { }

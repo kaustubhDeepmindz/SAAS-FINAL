@@ -1,8 +1,8 @@
 import { AbstractDocument } from '@app/common';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({ versionKey: false })
-export class UserService extends AbstractDocument {
+@Schema({ versionKey: false, timestamps: true })
+export class ProjectService extends AbstractDocument {
   @Prop({ required: true })
   project_id: string;
 
@@ -22,4 +22,4 @@ export class UserService extends AbstractDocument {
   api_keys: string[];
 }
 
-export const UserServiceSchema = SchemaFactory.createForClass(UserService);
+export const ProjectServiceSchema = SchemaFactory.createForClass(ProjectService);

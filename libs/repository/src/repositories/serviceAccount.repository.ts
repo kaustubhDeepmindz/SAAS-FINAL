@@ -4,7 +4,6 @@ import { Model, Connection } from 'mongoose';
 import { AbstractRepository } from '@app/common';
 import { ServiceAccount } from '../schemas/ServiceAccount.schema';
 
-
 @Injectable()
 export class ServiceAccountRepository extends AbstractRepository<ServiceAccount> {
   protected readonly logger = new Logger(ServiceAccountRepository.name);
