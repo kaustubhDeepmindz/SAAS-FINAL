@@ -9,10 +9,16 @@
     "apps/*"
   ],
   "scripts": {
+<<<<<<< HEAD
     "app": "nest start $app --watch",
     "build": "nest build && bash ./build-all-services.sh",
+=======
+    "build": "nest build ",
+    "build:pm2": "&& bash ./build-all-services.sh",
+>>>>>>> c93b629 (SETUP CONTINUED!)
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
+    "start:all:dev": "build.sh && pm2 start ecosystem.config.js",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/auth-services/main",
