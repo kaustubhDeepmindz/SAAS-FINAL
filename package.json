@@ -9,16 +9,10 @@
     "apps/*"
   ],
   "scripts": {
-<<<<<<< HEAD
     "app": "nest start $app --watch",
     "build": "nest build && bash ./build-all-services.sh",
-=======
-    "build": "nest build ",
-    "build:pm2": "&& bash ./build-all-services.sh",
->>>>>>> c93b629 (SETUP CONTINUED!)
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
-    "start:all:dev": "build.sh && pm2 start ecosystem.config.js",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/auth-services/main",
@@ -44,6 +38,7 @@
     "joi": "^17.9.2",
     "kafkajs": "^2.2.4",
     "mongoose": "^7.4.1",
+    "nestjs-razorpay": "^1.0.3",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",

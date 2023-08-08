@@ -1,13 +1,18 @@
-import { Inject, Module } from '@nestjs/common';
+import { DatabaseModule } from '@app/common';
+import { Module } from '@nestjs/common';
 import * as Joi from 'joi';
 import { PaymentServicesController } from './payment-services.controller';
 import { PaymentsService } from './payment-services.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { RepositoryModule } from '@app/repository';
+import { ConfigModule } from '@nestjs/config';
+import {PaymentDetailsRepository } from '../../../libs/repository/src/repositories/paymentDetails.repository';
 import { RazorpayModule } from 'nestjs-razorpay';
-
+import { MongooseModule } from '@nestjs/mongoose';
+import {PaymentDetailsSchema,PaymentDetails} from '@app/repository/schemas/Payment/PaymentDetails.schema'
 @Module({
   imports: [
+    DatabaseModule,
+    MongooseModule.forRoot('mongodb://localhost:27017/your_db'),
+    MongooseModule.forFeature([{ name: PaymentDetails.name, schema: PaymentDetailsSchema }]),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -21,9 +26,8 @@ import { RazorpayModule } from 'nestjs-razorpay';
       key_secret: process.env.RAZORPAY_SECRET
       // Other Razorpay options can be fetched from the .env file using ConfigService
     }),
-    RepositoryModule,
   ],
   controllers: [PaymentServicesController],
-  providers: [PaymentsService],
+  providers: [PaymentsService,PaymentDetailsRepository],
 })
 export class PaymentServicesModule { }

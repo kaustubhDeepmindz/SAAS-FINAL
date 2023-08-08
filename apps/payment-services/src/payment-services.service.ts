@@ -1,4 +1,4 @@
-import { PaymentDetailsRepository } from '@app/repository';
+import { PaymentDetailsRepository } from '../../../libs/repository/src/repositories/paymentDetails.repository';
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRazorpay } from 'nestjs-razorpay';
 import Razorpay from 'razorpay';

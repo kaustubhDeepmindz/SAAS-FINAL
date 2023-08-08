@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import * as tsNode from 'ts-node';
 import { register } from 'tsconfig-paths';
 
