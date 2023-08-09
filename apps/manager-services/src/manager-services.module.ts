@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { CacheModule } from '@nestjs/cache-manager'
+import { CacheModule, CacheStore } from '@nestjs/cache-manager'
 import { RepositoryModule } from '@app/repository';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as redisStore from "cache-manager-redis-store";
-import type { RedisClientOptions } from 'redis';
 import * as Joi from 'joi';
 import { AccountService } from './services/accounts.service';
 import { ManagerController } from './controllers/servicemanager.controller';
@@ -18,9 +17,6 @@ import {
   DeactivateServiceKeys
 } from "./events";
 
-
-
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -31,23 +27,16 @@ import {
       }),
       envFilePath: './apps/manager-services/.env',
     }),
-    CacheModule.register<RedisClientOptions>({ 
-      store: redisStore, 
-      host: 'localhost', //default host
-      port: 6379 //default port
+    CacheModule.registerAsync({
+      isGlobal: true,
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+          // store: redisStore,
+          host:configService.get('REDIS_STORE'),
+          port:configService.get('REDIS_URL')
+      }),
+      inject: [ConfigService],
     }),
-    // CacheModule.registerAsync({
-    //   useFactory: async (configService: ConfigService) => ({
-    //     ttl: configService.get('CACHE_TTL'),
-    //     store: redisStore,
-    //     socket: {
-    //       host: configService.get('REDIS_HOST'),
-    //       port: configService.get('REDIS_PORT'),
-    //     }
-    //   }),
-    //   inject: [ConfigService],
-    // }),
-   
     RepositoryModule,
     KafkaModule
   ],

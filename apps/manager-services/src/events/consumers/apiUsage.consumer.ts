@@ -17,9 +17,9 @@ export class ApiUsageConsumer implements OnModuleInit {
         config: { groupId: 'test-consumer' },
         onMessage: async (message) => {
             console.log("Usage:", message.usage);
-            calculate(message.usage);
-            const usage = new Usage(message.usage);
-            const usageSave = await usage.save();
+            // calculate(message.usage);
+            // const usage = new Usage(message.usage);
+            // const usageSave = await usage.save();
         },
         messageType: MessageType.JSON
       }

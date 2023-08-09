@@ -1,13 +1,18 @@
 import { ConsumerService } from '@app/common/kafka/consumer.service';
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 
 import { MessageType } from '@app/common/kafka/kafkajs.consumer';
 import { ProjectServiceRepository } from '@app/repository';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+
 
 @Injectable()
 export class DeactivateServiceKeys implements OnModuleInit {
-  constructor(private readonly consumerService: ConsumerService,
-    private readonly projectServiceRepository: ProjectServiceRepository) { }
+  constructor(
+    @Inject(CACHE_MANAGER) private redisClient: Cache,
+    private readonly consumerService: ConsumerService,
+    private readonly projectServiceRepository: ProjectServiceRepository
+  ) { }
 
   async onModuleInit() {
     await this.consumerService.consume(
@@ -15,11 +20,11 @@ export class DeactivateServiceKeys implements OnModuleInit {
         topic: { topic: 'service_keys_deactivate' },
         config: { groupId: 'test-consumer' },
         onMessage: async (message) => {
-            const deactivateKey = message;
-    
-            await redisClient.del(deactivateKey.key_id)
-            console.log(`DELETED KEY ${deactivateKey.key_id} TO REDIS SERVER`);
-            // calculate(message);
+          const deactivateKey = message;
+
+          await this.redisClient.del(deactivateKey.key_id)
+          console.log(`DELETED KEY ${deactivateKey.key_id} TO REDIS SERVER`);
+          // calculate(message);
         },
         messageType: MessageType.JSON
       }
