@@ -1,6 +1,6 @@
 import { ConsumerService } from '@app/common/kafka/consumer.service';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-
+import  {Cache} from 'cache-manager';
 import { MessageType } from '@app/common/kafka/kafkajs.consumer';
 import { ProjectServiceRepository } from '@app/repository';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';

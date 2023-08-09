@@ -1,6 +1,6 @@
 import { ConsumerService } from '@app/common/kafka/consumer.service';
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-
+import {Cache } from 'cache-manager';
 import { MessageType } from '@app/common/kafka/kafkajs.consumer';
 import { ProjectServiceRepository } from '@app/repository';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -25,7 +25,7 @@ export class ActivateServiceKeys implements OnModuleInit {
             credits: 150
           };
           // console.log(config);
-          await this.redisClient.set(activateKeys.keys.key_id, JSON.stringify(config), { ttl:});
+          await this.redisClient.set(activateKeys.keys.key_id, JSON.stringify(config));
           const saved = await this.redisClient.get(activateKeys.key_id);
           console.log(saved.toString())
           console.log("STORED TO REDIS SERVER");
