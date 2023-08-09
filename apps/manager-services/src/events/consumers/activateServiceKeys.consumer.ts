@@ -7,6 +7,7 @@ import { ProjectServiceRepository } from '@app/repository';
 @Injectable()
 export class ActivateServiceKeys implements OnModuleInit {
   constructor(private readonly consumerService: ConsumerService,
+    private readonly redisClient:
     private readonly projectServiceRepository: ProjectServiceRepository) { }
 
   async onModuleInit() {
