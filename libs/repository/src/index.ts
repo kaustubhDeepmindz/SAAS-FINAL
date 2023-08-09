@@ -12,3 +12,8 @@ export * from './repositories/paymentDetails.repository';
 
 export * from './repositories/usage.repository';
 export * from './repositories/userServiceStatus.repository';
+
+export * from './repositories/userCredits.repository';
+export * from './repositories/userCreditRecharge.repository';
+export * from './repositories/user.respository';
+

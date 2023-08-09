@@ -1,7 +1,3 @@
-export * from "./consumers/apiUsage.consumer";
-
-export * from "./consumers/activateService.consumer";
-export * from "./consumers/reactivateService.consumer";
-
-export * from "./consumers/activateServiceKeys.consumer";
-export * from "./consumers/deactivateServiceKeys.consumer";
+export * from "./consumers/newUser.consumer";
+export * from "./consumers/createServiceAccount.consumer";
+export * from "./consumers/rechargeCredits.consumer";

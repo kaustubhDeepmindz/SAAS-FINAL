@@ -15,6 +15,10 @@ import { Usage, UsageSchema } from './schemas/Billing/Usage.schema';
 import { UserServiceStatus, UserServiceStatusSchema } from './schemas/Billing/UserServiceStatus.schema';
 import { UsageRepository } from './repositories/usage.repository';
 import { UserServiceStatusRepository } from './repositories/userServiceStatus.repository';
+import { UserCreditsRepository } from './repositories/userCredits.repository';
+import { UserCredits, UserCreditsSchema } from './schemas/userCredits.schema';
+import { UserCreditRechargeRepository } from './repositories/userCreditRecharge.repository';
+import { UserCreditRechargeSchema, UserCreditRecharge } from './schemas/userCreditRecharge.schema';
 
 @Module({
   imports: [
@@ -27,10 +31,12 @@ import { UserServiceStatusRepository } from './repositories/userServiceStatus.re
       { name: ProjectServiceKeys.name, schema: ProjectServiceKeysSchema },
       { name: PaymentDetails.name, schema: PaymentDetailsSchema },
       { name: Usage.name, schema: UsageSchema },
-      { name: UserServiceStatus.name, schema: UserServiceStatusSchema }
+      { name: UserServiceStatus.name, schema: UserServiceStatusSchema },
+      { name: UserCredits.name, schema: UserCreditsSchema },
+      { name: UserCreditRecharge.name, schema: UserCreditRechargeSchema }
     ]),
   ],
-  providers: [ServiceAccountRepository, ProjectRepository, ProjectServiceRepository, ProjectServiceKeysRepository, PaymentDetailsRepository, UsageRepository, UserServiceStatusRepository],
-  exports: [ServiceAccountRepository, ProjectRepository, ProjectServiceRepository, ProjectServiceKeysRepository, PaymentDetailsRepository,  UsageRepository, UserServiceStatusRepository],
+  providers: [ServiceAccountRepository, ProjectRepository, ProjectServiceRepository, ProjectServiceKeysRepository, PaymentDetailsRepository, UsageRepository, UserServiceStatusRepository, UserCreditsRepository, UserCreditRechargeRepository],
+  exports: [ServiceAccountRepository, ProjectRepository, ProjectServiceRepository, ProjectServiceKeysRepository, PaymentDetailsRepository,  UsageRepository, UserServiceStatusRepository, UserCreditsRepository, UserCreditRechargeRepository],
 })
 export class RepositoryModule { }

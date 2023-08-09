@@ -1,15 +1,15 @@
 import { Logger, NotFoundException } from '@nestjs/common';
-import { FilterQuery, Model, Types, UpdateQuery,  SaveOptions, Connection } from 'mongoose';
+import { FilterQuery, Model, Types, UpdateQuery, SaveOptions, Connection, PipelineStage, AggregateOptions } from 'mongoose';
 import { AbstractDocument } from './abstract.schema';
 
 export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   protected abstract readonly logger: Logger;
 
-  constructor(protected readonly model: Model<TDocument>,    
-    private readonly connection: Connection,) {}
+  constructor(protected readonly model: Model<TDocument>,
+    private readonly connection: Connection,) { }
 
   async create(document: Omit<TDocument, '_id'>,
-  options?: SaveOptions): Promise<TDocument> {
+    options?: SaveOptions): Promise<TDocument> {
     const createdDocument = new this.model({
       ...document,
       _id: new Types.ObjectId(),
@@ -53,5 +53,9 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     const session = await this.connection.startSession();
     session.startTransaction();
     return session;
+  }
+
+  async aggregate(pipeline: PipelineStage[], options: AggregateOptions) {
+    return this.model.aggregate(pipeline);
   }
 }

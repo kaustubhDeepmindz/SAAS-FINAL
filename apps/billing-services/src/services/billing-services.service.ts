@@ -36,7 +36,7 @@ export class BillingServicesService {
     }
   }
 
-  async getUserServiceUsage(req) {
+  async getUserServiceUsage(req,res) {
     try {
       const { service_name, api_key } = req.params;
       console.log(req.params);
@@ -67,7 +67,7 @@ export class BillingServicesService {
 
   async postRechargeCredits(req, res) {
     console.log(req.params);
-    const { api_key, credits } = req.body
+    const { api_key, credits, serviceName } = req.body
     // Check for a Valid Service ID
     const serviceExists = await this.usageRepository.find({ service_name: serviceName });
     console.log(serviceExists);
@@ -78,11 +78,11 @@ export class BillingServicesService {
     }
   }
 
-  async getUsage(req) {
+  async getUsage(req,res) {
     // Check for a Valid Service ID
     const usage = await this.usageRepository.aggregate([
       { $project: usageDTO }
-    ]);
+    ], {});
     if (usage) {
       return { usage };
     } else {

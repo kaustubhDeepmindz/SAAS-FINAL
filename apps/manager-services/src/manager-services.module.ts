@@ -10,11 +10,9 @@ import { ServiceManagerService } from './services/servicemanager.service';
 import { ServiceManager } from './utils/serviceManager';
 import { KafkaModule } from '@app/common';
 import {
-  ApiUsageConsumer,
-  ActivateService,
-  ReactivateService,
-  ActivateServiceKeys,
-  DeactivateServiceKeys
+  NewUserConsumer,
+  CreateServiceAccountConsumer,
+  RechargeCreditsConsumer
 } from "./events";
 
 @Module({
@@ -48,12 +46,11 @@ import {
     // UTILS
     ServiceManager,
 
-    // Consumers
-    ApiUsageConsumer,
-    ActivateService,
-    ReactivateService,
-    ActivateServiceKeys,
-    DeactivateServiceKeys
+    // CONSUMER
+    NewUserConsumer,
+    CreateServiceAccountConsumer,
+    RechargeCreditsConsumer
+
   ],
 })
 export class ManagerServicesModule { }
