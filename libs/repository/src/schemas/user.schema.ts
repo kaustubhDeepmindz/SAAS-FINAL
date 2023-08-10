@@ -28,4 +28,4 @@ export class User extends AbstractDocument {
   final_credit_balance: number;
 }
 
-export const UserCreditRechargeSchema = SchemaFactory.createForClass(UserCreditRecharge);
+export const UserSchema = SchemaFactory.createForClass(User);
